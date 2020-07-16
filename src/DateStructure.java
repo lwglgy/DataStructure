@@ -8,7 +8,9 @@ public class DateStructure {
         heap.print();
         heap.setHeapIsSmallHeap(true);
 
-//        heap.insert(9);
+        heap.insert(9);
+        heap.print();
+        heap.pop();
         heap.print();
     }
 

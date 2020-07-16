@@ -50,6 +50,39 @@ public class Heap {
         return;
     }
 
+    private void down (int index) {
+        int leftchild = 2 * index + 1;
+        int rightchild = 2 * index + 2;
+        if (rightchild < size) {
+            if (heapInt[rightchild] < heapInt[index] && heapInt[leftchild] < heapInt[index]) {
+                int temp = heapInt[index];
+                if (heapInt[leftchild] < heapInt[rightchild]) {
+                    heapInt[index] = heapInt[leftchild];
+                    heapInt[leftchild] = temp;
+                    down(leftchild);
+                } else {
+                    heapInt[index] = heapInt[rightchild];
+                    heapInt[rightchild] = temp;
+                    down(rightchild);
+                }
+            } else if (leftchild < size) {
+                if ((heapInt[leftchild] < heapInt[index]) == isSmallHeap) {
+                    int temp = heapInt[leftchild];
+                    heapInt[leftchild] = heapInt[index];
+                    heapInt[index] = temp;
+                    down(leftchild);
+                }
+            } else if (rightchild < size) {
+                if ((heapInt[rightchild] < heapInt[index]) == isSmallHeap) {
+                    int temp = heapInt[index];
+                    heapInt[index] = heapInt[rightchild];
+                    heapInt[rightchild] = temp;
+                    down(rightchild);
+                }
+            }
+        }
+    }
+
     public void print(){
         int levelnum = 0;
         int levellast = 0;
@@ -81,10 +114,18 @@ public class Heap {
         return heapInt[0];
     }
 
-    public void setHeapIsSmallHeap(Boolean IsSmallHeap){
+    public void setHeapIsSmallHeap(boolean IsSmallHeap){
         isSmallHeap = IsSmallHeap;
         adjustHeap();
     }
 
+    public int pop(){
+        int popnum = heapInt[0];
+        heapInt[0] = heapInt[size-1];
+        heapInt[size-1] = 0;
+        size = size-1;
+        down(0);
+        return popnum;
+    }
 
 }
